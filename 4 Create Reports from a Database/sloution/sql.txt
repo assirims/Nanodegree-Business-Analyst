@@ -1,0 +1,14 @@
+1- Where are my customers located?
+	select count(Customers.Country) AS "Number of Customers", Customers.Country from Customers where Customers.Country in (select Orders.ShipCountry from Orders) Group by Customers.Country order by count(Customers.Country) desc
+
+2- What companies supply the majority of the products I sell?
+	select count(Products.SupplierID) AS "Number of Products", Suppliers.CompanyName from Products inner join Suppliers on Products.SupplierID=Suppliers.SupplierID group by Suppliers.CompanyName order by count(Products.SupplierID) desc
+
+
+3- Who are my highest performing employees?
+	select count(Orders.EmployeeID) AS "Number of Sale", (Employees.LastName || ", " || Employees.FirstName) As "Emplyee Name" from Orders inner join Employees on Orders.EmployeeID=Employees.EmployeeID group by "Emplyee Name"  order by count(Orders.EmployeeID) desc
+
+
+4- What products are growing in terms of sales?
+	select count(OrderDetails.ProductID) AS "Number of Sale", Products.ProductName from OrderDetails inner join Products on OrderDetails.ProductID=Products.ProductID group by Products.ProductName  order by count(OrderDetails.ProductID) desc
+
